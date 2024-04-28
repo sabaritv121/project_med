@@ -1,10 +1,12 @@
 from django.contrib import messages
+from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.views import View
-
+from io import BytesIO
 from Mediassist_app.forms import LoginRegister, DonorRegister
 from Mediassist_app.models import donor, users, Medicine_approval, Medicine_request, Cash_approval, Cash_request, \
     Feedback
+import xlsxwriter
 
 
 class CompanyRegistrationView(View):
@@ -49,6 +51,35 @@ def user_list(request):
 def requests(request):
     data = Medicine_approval.objects.all()
     return render(request, 'admin/approval.html', {'data': data})
+
+def export_medicines(request):
+    data = Medicine_approval.objects.filter(approval__status_1=2)
+
+    # Create an in-memory Excel file
+    output = BytesIO()
+    workbook = xlsxwriter.Workbook(output)
+    worksheet = workbook.add_worksheet()
+
+    # Write headers
+    headers = ['Company', 'User', 'End Date', 'Medicine', 'Quantity', 'Note']
+    for col, header in enumerate(headers):
+        worksheet.write(0, col, header)
+
+    # Write data rows
+    for row, task in enumerate(data, start=1):
+        worksheet.write(row, 0, task.user.name)
+        worksheet.write(row, 1, task.approval.user.username)
+        worksheet.write(row, 2, task.approval.end_date)
+        worksheet.write(row, 3, task.approval.medicine_name)
+        worksheet.write(row, 4, task.approval.quantity)
+        worksheet.write(row, 5, task.note)
+
+    workbook.close()
+
+    # Set response headers for Excel file download
+    response = HttpResponse(output.getvalue(), content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
+    response['Content-Disposition'] = 'attachment; filename=Medicine_report.xlsx'
+    return response
 
 
 

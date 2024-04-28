@@ -36,6 +36,8 @@ urlpatterns = [
    path('reject_donation/<int:id>/',admin_views.reject_donation, name='reject_donation'),
    # path("admin_approval",admin_views.admin_approval,name='admin_approval'),
    path('requests',admin_views.requests,name='requests'),
+   path('export-medicine',admin_views.export_medicines,name='export-medicine'),
+
 
 
    path('cash_requests',admin_views.cash_requests,name='cash_requests'),

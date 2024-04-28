@@ -10,9 +10,10 @@
     {% endfor %}
     <div class="card">
         <div class="card-header">
-            <strong class="card-title">USERS LIST</strong>
+            <strong class="card-title">Medicines</strong>
         </div>
         <div class="card-body">
+            <a href="{% url 'export-medicine' %}" class="btn btn-sm btn-primary">Generate Report</a>
             <table class="table table-striped">
                 <thead>
                 <tr>
