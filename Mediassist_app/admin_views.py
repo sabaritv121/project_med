@@ -61,7 +61,7 @@ def export_medicines(request):
     worksheet = workbook.add_worksheet()
 
     # Write headers
-    headers = ['Company', 'User', 'End Date', 'Medicine', 'Quantity', 'Note']
+    headers = ['Company', 'User', 'Medicine', 'Quantity', 'Note']
     for col, header in enumerate(headers):
         worksheet.write(0, col, header)
 
@@ -69,7 +69,7 @@ def export_medicines(request):
     for row, task in enumerate(data, start=1):
         worksheet.write(row, 0, task.user.name)
         worksheet.write(row, 1, task.approval.user.username)
-        worksheet.write(row, 2, task.approval.end_date)
+        # worksheet.write(row, 2, task.approval.end_date)
         worksheet.write(row, 3, task.approval.medicine_name)
         worksheet.write(row, 4, task.approval.quantity)
         worksheet.write(row, 5, task.note)
