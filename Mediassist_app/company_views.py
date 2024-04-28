@@ -93,7 +93,7 @@ def CashDonation(request):
     return render(request,'company/cashdonation.html',{'data':data})
 
 
-def payment(request, id):
+def payment(request,id):
     data = get_object_or_404(Cash_approval, id=id)
     form = PayForm()
 
@@ -103,9 +103,9 @@ def payment(request, id):
             med = form.save(commit=False)
             med.user = data
             med.save()
-            data.paystatus = 1
+            data.paystat = 1
             data.save()
-            messages.success(request, 'Paid Successfully')
-            return redirect('med_view')
+            messages.success(request,'Paid Successfully')
+            return redirect('CashDonation')
 
-    return render(request, 'payonline.html', {'form': form})
+    return render(request,'company/payonline.html', {'form': form})

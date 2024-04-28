@@ -53,7 +53,7 @@ def requests(request):
 
 
 def admin_approval(request):
-    data=Medicine_approval.objects.filter(approval__status_1 = 2 )
+    data=Medicine_approval.objects.filter(approval__status_1 = 3 )
     return render(request,'admin/approval.html',{'data':data})
 
 
@@ -81,8 +81,8 @@ def cash_requests(request):
     return render(request, 'admin/cash_approval.html', {'data': data})
 
 def admin_cash_approval(request):
-    data=Cash_approval.objects.filter(approval__status_12 = 1)
-    return render(request,'admin/approval.html',{'data':data})
+    data=Cash_approval.objects.filter(approval__status_12 = 3)
+    return render(request,'admin/cash_approval.html',{'data':data})
 
 
 

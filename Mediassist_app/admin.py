@@ -8,5 +8,6 @@ admin.site.register(models.users)
 admin.site.register(models.donor)
 admin.site.register(models.Medicine_request)
 admin.site.register(models.Medicine_approval)
+admin.site.register(models.Cash_approval)
 admin.site.register(models.Cash_request)
 
