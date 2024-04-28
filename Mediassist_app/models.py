@@ -57,7 +57,7 @@ class Medicine_request(models.Model):
 
 
 
-#
+
 class Medicine_approval(models.Model):
     user = models.ForeignKey(donor,on_delete=models.CASCADE)
     approval = models.ForeignKey(Medicine_request, on_delete=models.CASCADE, related_name='approval')

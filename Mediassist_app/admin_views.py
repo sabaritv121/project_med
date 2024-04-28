@@ -63,7 +63,10 @@ def approve_donation(request, id):
     n = Medicine_request.objects.get(id=id)
     print(n)
     n.status_1 = 2
+
+    print(n.status_1)
     n.save()
+
     messages.info(request, 'Donation Confirmed')
     return redirect('requests')
 
